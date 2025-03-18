@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Art Gallery</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #fafc8f, #f16f9a);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #f43695;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .fullscreen img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Art Gallery</h1>
+    <div class="image-container">
+        <img src="https://i.pinimg.com/736x/2c/d8/4e/2cd84e422d1a72e982e07b603a25934c.jpg" alt="Art 1" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/ea/86/90/ea86905f45580a24a23c7b2be59bcc08.jpg" alt="Art 2" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/26/8d/46/268d4662b36778c5703061c5f5eaf881.jpg" alt="Art 3" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/bf/a0/97/bfa09718562e512fe62d7279abf93179.jpg" alt="Art 4" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/af/a6/59/afa65948e4b09eb24aa5f7973b59ebb8.jpg" alt="Art 5" onclick="openFullscreen(this)">
+    </div>
+    
+    <script>
+        function openFullscreen(img) {
+            let fullscreenDiv = document.createElement('div');
+            fullscreenDiv.classList.add('fullscreen');
+            fullscreenDiv.onclick = function() { document.body.removeChild(fullscreenDiv); };
+            
+            let fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullscreenDiv.appendChild(fullImg);
+            
+            document.body.appendChild(fullscreenDiv);
+        }
+    </script>
+</body>
+</html>

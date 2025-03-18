@@ -1,0 +1,170 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, #8EC5FC, #E0C3FC);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Header */
+header {
+    background: rgba(0, 123, 255, 0.9);
+    color: white;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: slide-down 1s ease-out;
+}
+
+/* Navigation */
+nav {
+    margin-top: 8px;
+}
+
+nav a {
+    margin: 0 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    transition: transform 0.3s ease-in-out;
+}
+
+nav a:hover {
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+/* Animated Title */
+.animated-title {
+    font-size: 2em;
+    background: linear-gradient(45deg, #ff6b6b, #ffcc5c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Animations */
+@keyframes glow {
+    from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+    to { text-shadow: 0 0 20px rgba(255, 255, 255, 1); }
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1.2s forwards ease-in-out;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* News Section */
+.news-section {
+    padding: 30px;
+    text-align: center;
+    background: #E6F2EC;
+}
+
+/* News Container (4 cards per row) */
+#news-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Ensures 4 cards in a row */
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+}
+
+/* News Card */
+.news-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+    text-align: left;
+    width: 100%;
+    max-width: 260px;
+    height: 350px; /* Fixed height for equal-sized cards */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    perspective: 1000px;
+}
+
+.news-card:hover {
+    transform: rotateY(4deg) scale(1.03);
+    box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* News Card Image */
+.news-card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+
+.news-card:hover img {
+    transform: scale(1.1);
+}
+
+/* News Card Content */
+.news-content {
+    padding: 12px;
+    flex-grow: 1; /* Makes content align properly */
+}
+
+.news-content h3 {
+    font-size: 16px;
+    color: #357960;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.news-content p {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Read More Button */
+.read-more {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    padding: 6px 12px;
+    background: #357960;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 13px;
+    text-align: center;
+    transition: background 0.3s;
+}
+
+.read-more:hover {
+    background: #265943;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    #news-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on medium screens */
+    }
+}
+
+@media (max-width: 600px) {
+    #news-container {
+        grid-template-columns: repeat(1, 1fr); /* 1 card per row on small screens */
+    }
+
+    .news-card {
+        max-width: 90%;
+        height: auto;
+    }
+}

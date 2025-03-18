@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikes Gallery</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #2c3e50, #3498db);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffffff;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .fullscreen img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Bikes Gallery</h1>
+    <div class="image-container">
+        <img src="https://i.pinimg.com/736x/82/41/34/824134206fe02baaa6ae6b625a6f170b.jpg" alt="Bike 1" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/6f/c2/a8/6fc2a8e8fa5e791ad27521fcf414c52d.jpg" alt="Bike 2" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/a6/d6/8e/a6d68ebd7ad1718c7888b27712f076f7.jpg" alt="Bike 3" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/ae/83/32/ae8332c4c996b00d8ab8312bb5d96097.jpg" alt="Bike 4" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/c8/ae/89/c8ae89a8a0c6e081ae2d9eb1a27f7d1b.jpg" alt="Bike 5" onclick="openFullscreen(this)">
+    </div>
+    
+    <script>
+        function openFullscreen(img) {
+            let fullscreenDiv = document.createElement('div');
+            fullscreenDiv.classList.add('fullscreen');
+            fullscreenDiv.onclick = function() { document.body.removeChild(fullscreenDiv); };
+            
+            let fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullscreenDiv.appendChild(fullImg);
+            
+            document.body.appendChild(fullscreenDiv);
+        }
+    </script>
+</body>
+</html>

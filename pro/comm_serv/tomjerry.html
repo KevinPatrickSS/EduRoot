@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tom & Jerry Gallery</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ff9900, #ff3300);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffffff;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .fullscreen img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Tom & Jerry Gallery</h1>
+    <div class="image-container">
+        <img src="https://i.pinimg.com/736x/b5/db/0d/b5db0d0a4ab28163cb4ec02697bc1219.jpg" alt="Tom & Jerry 1" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/95/d3/d9/95d3d9879930224bc26cd349733c2261.jpg" alt="Tom & Jerry 2" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/fd/63/23/fd6323e1d5b66d4506ac5017cae4f8c6.jpg" alt="Tom & Jerry 3" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/49/a1/26/49a126354980675d09fff067dd799144.jpg" alt="Tom & Jerry 4" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/e8/9e/cb/e89ecbd99f22fcffda8ee7e98e359814.jpg" alt="Tom & Jerry 5" onclick="openFullscreen(this)">
+    </div>
+    
+    <script>
+        function openFullscreen(img) {
+            let fullscreenDiv = document.createElement('div');
+            fullscreenDiv.classList.add('fullscreen');
+            fullscreenDiv.onclick = function() { document.body.removeChild(fullscreenDiv); };
+            
+            let fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullscreenDiv.appendChild(fullImg);
+            
+            document.body.appendChild(fullscreenDiv);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometry Shape Draw</title>
+    <link rel="stylesheet" href="geometry.css">
+</head>
+<body>
+    <h2>🎨 Draw the selected shape</h2>
+    <div class="container">
+        <select id="shapeSelector">
+            <option value="Triangle">⬜ Square</option>
+            <option value="Square">🔺 Triangle</option>
+            <option value="Rectangle">▭ Rectangle</option>
+        </select>
+        <br>
+        <canvas id="drawingCanvas" width="400" height="400"></canvas>
+        <br>
+        <button onclick="clearCanvas()">Clear</button>
+        <p id="feedback" class="feedback"></p>
+    </div>
+    
+    <script src="geometry.js"></script>
+</body>
+</html>

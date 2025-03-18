@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Problems</title>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f0fdf4;
+            margin: 0;
+            padding: 0;
+            animation: fadeIn 1s ease-in-out;
+        }
+        .header {
+            background-color: #2e7d32;
+            color: white;
+            padding: 15px;
+            font-size: 26px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .container {
+            margin: 50px auto;
+            width: 90%;
+            max-width: 600px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+        h2 {
+            color: #2e7d32;
+            font-size: 24px;
+        }
+        p {
+            font-size: 18px;
+        }
+        input {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 18px;
+            text-align: center;
+            border: 2px solid #2e7d32;
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+        input:focus {
+            outline: none;
+            border-color: #1b5e20;
+            box-shadow: 0 0 8px rgba(46, 125, 50, 0.6);
+        }
+        button {
+            background-color: #2e7d32;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s ease;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #1b5e20;
+            transform: scale(1.05);
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #555;
+        }
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+        .confetti {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Word Problems</div>
+    <div class="container">
+        <h2>Solve the Word Problem!</h2>
+        <p id="question"></p>
+        <input type="number" id="answer" placeholder="Your answer">
+        <button onclick="checkAnswer()">Submit</button>
+        <button onclick="generateProblem()">Next Question</button>
+        <p id="feedback"></p>
+    </div>
+    <div class="footer">&copy; 2025 Math Learning Hub. All Rights Reserved.</div>
+
+    <canvas class="confetti" id="confettiCanvas"></canvas>
+
+    <script>
+        const problems = [
+    { question: "John has 5 apples. He buys 3 more. How many apples does he have now?", answer: 8 },
+    { question: "Sara had 12 pencils. She gave 4 to her friend. How many does she have left?", answer: 8 },
+    { question: "A car travels 60 km in 2 hours. What is its speed per hour?", answer: 30 },
+    { question: "A book has 300 pages. If a student reads 50 pages each day, how many days will it take to finish?", answer: 6 },
+    { question: "Mike bought 4 packs of chocolates, each containing 5 chocolates. How many chocolates in total?", answer: 20 },
+    { question: "If a rectangle has a length of 10 and width of 5, what is its area?", answer: 50 },
+    { question: "A triangle has a base of 6 and height of 4. What is its area?", answer: 12 },
+    { question: "A farmer has 15 cows and sells 5. How many cows does he have left?", answer: 10 },
+    { question: "If an hour has 60 minutes, how many minutes are in 3 hours?", answer: 180 },
+    { question: "A train travels 120 km in 2 hours. What is its speed per hour?", answer: 60 },
+    { question: "If 5 people share a 20-slice pizza equally, how many slices does each person get?", answer: 4 },
+    { question: "A tank contains 40 liters of water. 10 liters are used. How much is left?", answer: 30 },
+    { question: "An elevator goes up 5 floors and then down 2. What floor is it on if it started at 3?", answer: 6 },
+    { question: "A farmer collects 7 eggs daily. How many eggs in a week?", answer: 49 },
+    { question: "If a square has a side length of 8, what is its perimeter?", answer: 32 },
+    { question: "A factory produces 200 items per day. How many in 5 days?", answer: 1000 },
+    { question: "An athlete runs 5 km daily. How many in 10 days?", answer: 50 },
+    { question: "A shop sells 4 pens for $2. How much for 10 pens?", answer: 5 },
+    { question: "If a person saves $15 each week, how much in 6 weeks?", answer: 90 },
+    { question: "A car has 4 tires and a spare. How many tires in 3 cars?", answer: 15 },
+    { question: "A packet has 24 candies. How many candies in 5 packets?", answer: 120 },
+    { question: "A worker earns $50 per day. How much in 8 days?", answer: 400 },
+    { question: "A classroom has 30 chairs. 6 are broken. How many are usable?", answer: 24 },
+    { question: "If a plant grows 2 cm daily, how much in 15 days?", answer: 30 },
+    { question: "A box has 9 red and 6 blue marbles. How many marbles total?", answer: 15 },
+    { question: "A ladder has 12 steps. You climb 7. How many left?", answer: 5 },
+    { question: "If a bucket holds 10 liters, how many liters in 7 buckets?", answer: 70 },
+    { question: "A bridge is 400 meters long. A car crosses it in 10 seconds. What is its speed?", answer: 40 },
+    { question: "A baker bakes 150 bread loaves daily. How many in 3 days?", answer: 450 }
+];
+
+        let currentProblem = {};
+        let confettiRunning = false;
+
+        function generateProblem() {
+            const randomIndex = Math.floor(Math.random() * problems.length);
+            currentProblem = problems[randomIndex];
+            document.getElementById("question").textContent = currentProblem.question;
+            document.getElementById("answer").value = "";
+            document.getElementById("feedback").textContent = "";
+            stopConfetti();
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById("answer").value);
+            const feedback = document.getElementById("feedback");
+            const inputField = document.getElementById("answer");
+
+            if (userAnswer === currentProblem.answer) {
+                feedback.textContent = "✅ Correct! Great job!";
+                feedback.style.color = "green";
+                startConfetti();
+                setTimeout(stopConfetti, 3000); // Stops confetti after 3 seconds
+            } else {
+                feedback.textContent = "❌ Incorrect. Try again!";
+                feedback.style.color = "red";
+                inputField.classList.add("shake");
+                setTimeout(() => inputField.classList.remove("shake"), 300);
+                stopConfetti();
+            }
+        }
+
+        function startConfetti() {
+            if (confettiRunning) return;
+            confettiRunning = true;
+
+            const canvas = document.getElementById("confettiCanvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const confettiParticles = [];
+            for (let i = 0; i < 100; i++) {
+                confettiParticles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 5 + 2,
+                    d: Math.random() * 5 + 2,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+                    tilt: Math.random() * 10 - 5,
+                });
+            }
+
+            function drawConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (const p of confettiParticles) {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                    p.y += p.d;
+                    p.x += p.tilt;
+                    if (p.y > canvas.height) {
+                        p.y = 0;
+                        p.x = Math.random() * canvas.width;
+                    }
+                }
+                if (confettiRunning) requestAnimationFrame(drawConfetti);
+            }
+
+            drawConfetti();
+        }
+
+        function stopConfetti() {
+            confettiRunning = false;
+            const canvas = document.getElementById("confettiCanvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        window.onload = generateProblem;
+    </script>
+</body>
+</html>

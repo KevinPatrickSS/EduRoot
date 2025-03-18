@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shinchan Gallery</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ffcc00, #ff6666);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #ffffff;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .image-container img {
+            width: 300px;
+            height: 200px;
+            border-radius: 10px;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .image-container img:hover {
+            transform: scale(1.1);
+        }
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .fullscreen img {
+            max-width: 90vw;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 4px 4px 15px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <h1>Shinchan Gallery</h1>
+    <div class="image-container">
+        <img src="https://i.pinimg.com/736x/f4/5d/ac/f45dacc92f274a28a92546ef945e61a9.jpg" alt="Shinchan 1" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/b6/55/57/b65557871402f9358ae8d6d8891f623c.jpg" alt="Shinchan 2" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/ef/05/d5/ef05d5dc8ac6f2221897965d94b383d7.jpg" alt="Shinchan 3" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/34/78/ae/3478aeb895a3e0d005e974275c084577.jpg" alt="Shinchan 4" onclick="openFullscreen(this)">
+        <img src="https://i.pinimg.com/736x/69/e3/9d/69e39d33d91dbaa50de3f507f39425da.jpg" alt="Shinchan 5" onclick="openFullscreen(this)">
+    </div>
+    
+    <script>
+        function openFullscreen(img) {
+            let fullscreenDiv = document.createElement('div');
+            fullscreenDiv.classList.add('fullscreen');
+            fullscreenDiv.onclick = function() { document.body.removeChild(fullscreenDiv); };
+            
+            let fullImg = document.createElement('img');
+            fullImg.src = img.src;
+            fullscreenDiv.appendChild(fullImg);
+            
+            document.body.appendChild(fullscreenDiv);
+        }
+    </script>
+</body>
+</html>

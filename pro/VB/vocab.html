@@ -1,0 +1,154 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Vocabulary Learning</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            background: url('download (9).jpeg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        #vocab-section {
+            background: #ffccff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 50%;
+        }
+        button {
+            background: #ff66b2;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #ff3385;
+        }
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+            width: 80%;
+            margin-top: 10px;
+        }
+        #word-meaning, #feedback, #completion-message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #meaning-section, #sentence-section, #completion-message {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="vocab-section">
+        <h2>Word of the Day:</h2>
+        <h1 id="word-display" style="color: #ff3385;"></h1>
+        <p id="error-message" style="color: red; display: none;">Failed to load word. Check console.</p>
+        <button id="lets-go">Let's Go!</button>
+        
+        <div id="meaning-section">
+            <p id="word-meaning" style="font-size: 18px;"></p>
+            <button id="next-step">Use in a Sentence</button>
+        </div>
+        
+        <div id="sentence-section">
+            <input type="text" id="sentence-input" placeholder="Use the word in a sentence">
+            <button id="check-sentence">Check</button>
+            <p id="feedback"></p>
+            <button id="finish" style="display:none;">Finish</button>
+        </div>
+        
+        <p id="completion-message" style="color: green; font-size: 18px;">Come back tomorrow for the next word!</p>
+        <button id="next-word">Next Word</button>
+    </div>
+
+    <script>
+        let vocabulary = [];
+        let currentIndex = 0;
+
+        function loadWord(index) {
+            const wordOfTheDay = vocabulary[index % vocabulary.length];
+            document.getElementById("word-display").innerText = wordOfTheDay.word || "(No word available)";
+            document.getElementById("word-meaning").innerText = `Meaning: ${wordOfTheDay.meaning || "Not available"}`;
+            
+            // Reset sections
+            document.getElementById("meaning-section").style.display = "none";
+            document.getElementById("sentence-section").style.display = "none";
+            document.getElementById("completion-message").style.display = "none";
+            document.getElementById("feedback").innerText = "";
+            document.getElementById("sentence-input").value = "";
+            document.getElementById("finish").style.display = "none";
+
+            // Show the Let's Go button again
+            document.getElementById("lets-go").style.display = "inline-block";
+        }
+
+        fetch('vocabulary.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                vocabulary = data;
+                loadWord(currentIndex);
+            })
+            .catch(error => {
+                console.error("Error loading vocabulary.json:", error);
+                document.getElementById("error-message").style.display = "block";
+            });
+
+        document.getElementById("lets-go").addEventListener("click", function() {
+            document.getElementById("meaning-section").style.display = "block";
+            document.getElementById("lets-go").style.display = "none";
+        });
+
+        document.getElementById("next-step").addEventListener("click", function() {
+            document.getElementById("sentence-section").style.display = "block";
+            document.getElementById("next-step").style.display = "none";
+        });
+
+        document.getElementById("check-sentence").addEventListener("click", function() {
+            const userSentence = document.getElementById("sentence-input").value;
+            const feedbackBox = document.getElementById("feedback");
+            const currentWord = vocabulary[currentIndex % vocabulary.length].word;
+
+            if (userSentence.toLowerCase().includes(currentWord.toLowerCase())) {
+                feedbackBox.innerText = "Great job! Your sentence is correct.";
+                feedbackBox.style.color = "green";
+                document.getElementById("finish").style.display = "inline-block";
+            } else {
+                feedbackBox.innerText = "Oops! Try again with correct grammar and word usage.";
+                feedbackBox.style.color = "red";
+            }
+        });
+
+        document.getElementById("finish").addEventListener("click", function() {
+            document.getElementById("sentence-section").style.display = "none";
+            document.getElementById("completion-message").style.display = "block";
+        });
+
+        document.getElementById("next-word").addEventListener("click", function() {
+            currentIndex++;
+            loadWord(currentIndex);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Arithmetic</title>
+
+    <link rel="stylesheet" href="arithmetic.css">
+</head>
+<body>
+    <div class="header">Play Arithmetic</div>
+    <div class="container">
+        <h2 class="title">Choose an Operation to Play!</h2>
+        <div class="game-grid">
+            <div class="game-card" onclick="playGame('addition')">
+                
+                <p>Addition</p>
+            </div>
+            <div class="game-card" onclick="playGame('subtraction')">
+                
+                <p>Subtraction</p>
+            </div>
+            <div class="game-card" onclick="playGame('multiplication')">
+                
+                <p>Multiplication</p>
+            </div>
+            <div class="game-card" onclick="playGame('division')">
+                
+                <p>Division</p>
+            </div>
+            <div class="row word-problem">
+        <div class="game-card" onclick="playGame('wordProblems')">
+            
+            <p>Word Problems</p>
+        </div>
+    </div>
+        </div>
+    </div>
+    <div class="footer">&copy; 2025 Math Learning Hub. All Rights Reserved.</div>
+
+    <script src="arithmetic.js"></script>
+</body>
+</html>
