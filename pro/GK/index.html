@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily GK Fact</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-image: url('/pro/GK/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 20px;
+}
+
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #007bff;
+        }
+        p {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="header">
+        <span class="fact-fiesta">🧠 Fact Fiesta 💡</span>
+    </h2>
+
+    <div class="container" id="factContainer">
+        <h1>🌍 Fact of the Day</h1>
+        <p id="gkFact">Loading...</p>
+        <button onclick="nextFact()">Next Fact ➡</button>
+    </div>
+    
+    <div class="container" id="quizContainer" style="display:none;">
+        <h1>📝 True or False?</h1>
+        <p id="question"></p>
+        <button onclick="checkAnswer(true)">True ✅</button>
+        <button onclick="checkAnswer(false)">False ❌</button>
+    </div>
+    
+    <script>
+        let facts = [];
+        let todayIndex = 0;
+        let currentIndex = 0;
+        let viewedFacts = [];
+        let quizData = [];
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        async function loadGKFacts() {
+            try {
+                const response = await fetch('gk_facts.json'); 
+                const data = await response.json();
+                facts = data.facts;
+
+                todayIndex = new Date().getDate() % facts.length;
+                currentIndex = getStoredIndex();
+                showFact();
+            } catch (error) {
+                document.getElementById("gkFact").textContent = "Failed to load fact.";
+            }
+        }
+
+        function showFact() {
+            document.getElementById("gkFact").textContent = facts[currentIndex];
+        }
+
+        function nextFact() {
+            viewedFacts.push(facts[currentIndex]);
+            if (viewedFacts.length >= 10) {
+                generateQuiz();
+                return;
+            }
+            currentIndex = (currentIndex + 1) % facts.length;
+            saveIndex(currentIndex);
+            showFact();
+        }
+
+        function generateQuiz() {
+            document.getElementById("factContainer").style.display = "none";
+            document.getElementById("quizContainer").style.display = "block";
+            
+            quizData = viewedFacts.map(fact => {
+                let isTrue = Math.random() > 0.5;
+                return {
+                    question: isTrue ? fact : "Statement    : " + fact,
+                    answer: isTrue
+                };
+            });
+            
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestionIndex >= quizData.length) {
+                alert(`Quiz Completed! Your Score: ${score}/${quizData.length}`);
+                location.reload();
+                return;
+            }
+            document.getElementById("question").textContent = quizData[currentQuestionIndex].question;
+        }
+
+        function checkAnswer(userAnswer) {
+            if (userAnswer === quizData[currentQuestionIndex].answer) {
+                score++;
+            }
+            currentQuestionIndex++;
+            showQuestion();
+        }
+
+        function saveIndex(index) {
+            localStorage.setItem("gkFactIndex", index);
+        }
+
+        function getStoredIndex() {
+            return localStorage.getItem("gkFactIndex") ? parseInt(localStorage.getItem("gkFactIndex")) : todayIndex;
+        }
+
+        loadGKFacts();
+    </script>
+</body>
+</html>

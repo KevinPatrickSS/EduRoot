@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Learning Roadmap</title>
+    <a href="https://www.flaticon.com/free-icons/maths" title="maths icons"></a>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="icon" href="pro/Assets/eduRoot.jpg" type="image/jpeg">
+
+    
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -15,6 +19,7 @@
             overflow: hidden;
             position: relative;
         }
+
 
         .roadmap-container {
             position: relative;
@@ -29,6 +34,7 @@
             left: 20%;
             width: 100%;
             height: 100%;
+            transform: translateX(-70px);
         }
 
         /* Car */
@@ -43,7 +49,6 @@
             position: absolute;
             width: 120px;
             height: 120px;
-            background: #db7979;
             border-radius: 50%;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
             display: flex;
@@ -58,57 +63,71 @@
         }
 
         /* Positioning each feature along the zigzag road */
-        #maths { top: 10%; left: 20%; }
-        #gk { top: 45%; left: 60%; }
-        #current-affairs { top: 65%; left: 25%; }
-        #vocabulary { top: 95%; left: 80%; }
-        #creative { top: 5%; left: 40%; }
+        #maths { top: 8%; left: 25%; }
+        #gk { top: 35%; left: 65%; }
+        #current-affairs { top: 45%; left: 7%; }
+        #vocabulary { top: 15%; left: 85%; }
+        #creative { top: 55%; left: 45%; }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Learning Roadmap</a>
+    <nav class="navbar navbar-expand-lg" style="background: linear-gradient(45deg, #ff9a9e, #fad0c4); box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);">
+        <a class="navbar-brand text-white font-weight-bold" href="#" style="font-size: 1.5rem;">
+            🚀 Learning Roadmap
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link text-white" href="#">🏠 Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="mathFolder/math.html">Maths</a>
+                    <a class="nav-link text-white" href="pro\mathFolder\math.html">➗ Maths</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="GK/index.html">General Knowledge</a>
+                    <a class="nav-link text-white" href="pro\GK\index.html">📚 General Knowledge</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="current-affairs.html">Current Affairs</a>
+                    <a class="nav-link text-white" href="pro/Current Affairs/current-affairs.html">📰 Current Affairs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="VB/vocab.html">Vocabulary</a>
+                    <a class="nav-link text-white" href="pro/VB/vocab.html">🔤 Vocabulary</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="comm_serv/fun_zone.html">Creative Learning</a>
+                    <a class="nav-link text-white" href="pro/comm_serv/fun_zone.html">🎨 Creative Learning</a>
                 </li>
             </ul>
         </div>
     </nav>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     
     <h1 class="h-3 m-5">Interactive Learning Roadmap</h1>
 
     <div class="roadmap-container">
-        <svg class="road" viewBox="300 200 1000 600">
-            <path d="M 50 600 Q 30 400, 600 650 T 950 550" stroke="#333" stroke-width="10" fill="none" stroke-dasharray="20,15"/>
-        </svg>
+        <!-- <svg class="road" viewBox="200 350 1200 600">
+            <path d="M 50 700 Q 30 400, 600 650 T 1050 450" stroke="#333" stroke-width="10" fill="none" stroke-dasharray="20,15"/>
+        </svg> -->
         
-        <img src="/pro/pngtree-yellow-toy-car-png-image_5965308-removebg-preview.png" alt="Car" class="car" id="car" style="top: 90%; left: 5%;">
+        <img src="pro\Assets\startup.png" alt="Car" class="car" id="car" style="top: 90%; left: 5%;">
         
-        <div class="destination" id="maths" onclick="moveCar(this, 'mathFolder/math.html')">Maths</div>
-        <div class="destination" id="gk" onclick="moveCar(this, 'GK/index.html')">GK</div>
-        <div class="destination" id="current-affairs" onclick="moveCar(this, 'current-affairs.html')">Current Affairs</div>
-        <div class="destination" id="vocabulary" onclick="moveCar(this, 'VB/vocab.html')">Vocabulary</div>
-        <div class="destination" id="creative" onclick="moveCar(this, 'comm_serv/fun_zone.html')">Creative Part</div>
+        <div class="destination" id="maths" onclick="moveCar(this, 'pro/mathFolder/math.html')">
+            <img src="pro\Assets\calculator.png" alt="Math" style="width: 80px;">
+        </div>
+        <div class="destination" id="gk" onclick="moveCar(this, 'pro/GK/index.html')">
+            <img src="pro\Assets\book.png" alt="GK" style="width: 80px;">
+        </div>
+        <div class="destination" id="current-affairs" onclick="moveCar(this, 'pro/Current Affairs/current-affairs.html')">
+            <img src="pro\Assets\presenter.png" alt="Current Affairs" style="width: 80px;">
+        </div>
+        <div class="destination" id="vocabulary" onclick="moveCar(this, 'pro/VB/vocab.html')">
+            <img src="pro\Assets\dictionary.png" alt="Vocabulary" style="width: 80px;">
+        </div>
+        <div class="destination" id="creative" onclick="moveCar(this, 'pro/comm_serv/fun_zone.html')">
+            <img src="pro\Assets\creativity (1).png" alt="Creative Learning" style="width: 80px;">
+        </div>
+        
     </div>
 
     <script>
